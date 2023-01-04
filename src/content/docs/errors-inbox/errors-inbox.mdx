@@ -26,8 +26,6 @@ import errorsinboxErrorsInboxUi from 'images/errors-inbox_screenshot-full_errors
 
 import errorsinboxErrorContext from 'images/errors-inbox_screenshot-crop_error-context.png'
 
-import errorsinboxAssignJira from 'images/errors-inbox_screenshot-full_assign-jira.png'
-
 import errorsinboxBulkActions from 'images/errors-inbox_screenshot-full_bulk-actions.png'
 
 import errorsinboxRegressionErrors from 'images/errors-inbox_screenshot-crop_regression-errors.png'
@@ -54,7 +52,7 @@ Access to [log management capabilities](/docs/logs/get-started/get-started-log-m
 
 ## Use errors inbox from entity scoped views [#scoped]
 
-[Entity](/docs/new-relic-solutions/new-relic-one/core-concepts/what-entity-new-relic/) scoped views allow you to view errors for a single APM, browser, mobile, or [OpenTelemetry](/docs/more-integrations/open-source-telemetry-integrations/opentelemetry/opentelemetry-introduction/#benefits) application. Access the errors inbox view for a specific entity by navigating to that entity in the APM, browser, mobile, or OpenTelemetry monitoring view and selecting **Errors inbox** in the left nav under **Triage**. 
+[Entity](/docs/new-relic-solutions/new-relic-one/core-concepts/what-entity-new-relic/) scoped views allow you to view errors for a single APM, browser, mobile, or [OpenTelemetry](/docs/more-integrations/open-source-telemetry-integrations/opentelemetry/opentelemetry-introduction/#benefits) application. Access the errors inbox view for a specific entity by navigating to that entity in the APM, browser, mobile, or OpenTelemetry monitoring view and selecting **Errors inbox** in the left nav under **Triage**.
 
 <img
   title="An image showing how to navigate to a scoped Otel entity"
@@ -120,7 +118,7 @@ Your errors inbox displays the total number of occurrences of each error group w
 
 Using the dropdown in the top right, you can sort the list of grouped errors by the number of occurrences or by the error that was last seen (latest first).
 
-### Regression tag 
+### Regression tag [#regressions-tag]
 
 An error group is tagged with a regression tag when a new error matches a resolved error group's fingerprint. The regression tag will disappear once a regressed error group's state is changed.
 
@@ -128,6 +126,22 @@ An error group is tagged with a regression tag when a new error matches a resolv
   title="Screenshot of regression tag text."
   alt="Screenshot of regression tag text."
   src={errorsinboxRegressionErrors}
+/>
+
+### Expected errors tags [#expected-tags]
+
+An error group is tagged with an "expected" tag if all error occurrences in the group are expected. It is tagged with a "contains expected errors" tag if some error occurrences are expected and some are not.
+See more on how to [mark errors as expected](/docs/apm/agents/manage-apm-agents/agent-data/manage-errors-apm-collect-ignore-or-mark-expected/#expected).
+
+<img
+  title="Screenshot of expected tag text."
+  alt="Screenshot of expected tag text."
+  src={errorsinboxExpectedErrors}
+/>
+<img
+  title="Screenshot of contains expected tag text."
+  alt="Screenshot of contains expected tag text."
+  src={errorsinboxContainsExpectedErrors}
 />
 
 ### Bulk actions [#bulk-actions]
@@ -146,11 +160,11 @@ You can update the status of multiple error groups (up to 2,000) all at once. In
 
 ### First and last seen dates [#dates]
 
-We understand it's very useful to know when an error group was first seen in order to correlate it with a change in the code/system. The accuracy of first and last seen dates depends on the three scenarios outlined below: 
+We understand it's very useful to know when an error group was first seen in order to correlate it with a change in the code/system. The accuracy of first and last seen dates depends on the three scenarios outlined below:
 
-* **Scenario 1:** If an error group was first created on or after 5/17/2022, first and last seen values are accurate. 
+* **Scenario 1:** If an error group was first created on or after 5/17/2022, first and last seen values are accurate.
 
-* **Scenario 2:** If an error group was first created before 5/17/2022, the first seen date will not be accurate. The first seen date is either 5/17/2022 or the date of the earliest occurrence (if the time window selected is before 5/17/2022). The last seen value will be accurate. 
+* **Scenario 2:** If an error group was first created before 5/17/2022, the first seen date will not be accurate. The first seen date is either 5/17/2022 or the date of the earliest occurrence (if the time window selected is before 5/17/2022). The last seen value will be accurate.
 
 * **Scenario 3:** If an error group occurs once per week or less, the first and last seen dates are estimates based on the time of the single occurrence. We only track first and last seen dates accurately for errors that show up more than once per week.
 
@@ -165,6 +179,14 @@ You can set one of three statuses, and filter your inbox by status.
 * `Unresolved`: This is the default status of error groups.
 * `Resolved`: Setting an error as resolved will hide it from the default inbox view unless filters are updated to include resolved errors. If events matching the error group fingerprint occur after marking an error group as resolved, it will automatically reset the status to `Unresolved`.  This can be useful for identifying regressions.
 * `Ignored`: This will hide the error group from the inbox view unless filters are updated to include ignored errors, or until you stop ignoring the error group.
+
+### Expected Errors [#expected]
+
+Errors inbox enables you to filter out expected errors. You can [mark errors as expected](/docs/apm/agents/manage-apm-agents/agent-data/manage-errors-apm-collect-ignore-or-mark-expected/#expected), and filter them out of your inbox to remove noise.
+
+* `error.expected != true`: This is the default. It hides all error groups that have only expected errors and it marks error groups that have a mix of expected and unexpected errors with the "contains expected errors" tag.
+* `error.expected = true`: This filter will show error groups where some or all errors in the group are expected. This can be useful for identifying which errors are marked as expected.
+* Removing the error.expected filter will show all error groups whether they are marked as expected or not.
 
 ## Error details [#error-details]
 
@@ -200,7 +222,7 @@ Clicking on a specific error group takes you to the error details page, where yo
   >
     The **Attributes** tab enables you to quickly find commonalities between the related errors for faster resolution.
 
-    Click on a specific attribute to open a sidebar with specific details. You can also send [custom attributes](/docs/data-apis/custom-data/custom-events/collect-custom-attributes/). 
+    Click on a specific attribute to open a sidebar with specific details. You can also send [custom attributes](/docs/data-apis/custom-data/custom-events/collect-custom-attributes/).
   </Collapser>
 
   <Collapser
