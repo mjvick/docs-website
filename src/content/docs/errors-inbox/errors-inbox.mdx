@@ -134,14 +134,9 @@ An error group is tagged with an "expected" tag if all error occurrences in the 
 See more on how to [mark errors as expected](/docs/apm/agents/manage-apm-agents/agent-data/manage-errors-apm-collect-ignore-or-mark-expected/#expected).
 
 <img
-  title="Screenshot of expected tag text."
+  title="Screenshot of expected tags text."
   alt="Screenshot of expected tag text."
   src={errorsinboxExpectedErrors}
-/>
-<img
-  title="Screenshot of contains expected tag text."
-  alt="Screenshot of contains expected tag text."
-  src={errorsinboxContainsExpectedErrors}
 />
 
 ### Bulk actions [#bulk-actions]
@@ -182,7 +177,7 @@ You can set one of three statuses, and filter your inbox by status.
 
 ### Expected Errors [#expected]
 
-Errors inbox enables you to filter out expected errors. You can [mark errors as expected](/docs/apm/agents/manage-apm-agents/agent-data/manage-errors-apm-collect-ignore-or-mark-expected/#expected), and filter them out of your inbox to remove noise.
+Errors inbox enables you to filter out expected errors for APM entities. You can [mark errors as expected](/docs/apm/agents/manage-apm-agents/agent-data/manage-errors-apm-collect-ignore-or-mark-expected/#expected), and filter them out of your inbox to remove noise.
 
 * `error.expected != true`: This is the default. It hides all error groups that have only expected errors and it marks error groups that have a mix of expected and unexpected errors with the "contains expected errors" tag.
 * `error.expected = true`: This filter will show error groups where some or all errors in the group are expected. This can be useful for identifying which errors are marked as expected.
